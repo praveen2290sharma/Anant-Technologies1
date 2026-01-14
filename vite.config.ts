@@ -4,16 +4,11 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   define: {
-    'process.env.API_KEY': JSON.stringify(process.env.API_KEY || ''),
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
-  },
-  server: {
-    historyApiFallback: true,
-    port: 3000
+    'process.env.API_KEY': JSON.stringify(process.env.API_KEY || '')
   },
   build: {
     outDir: 'dist',
-    sourcemap: false,
-    emptyOutDir: true
+    emptyOutDir: true,
+    sourcemap: false
   }
 });
