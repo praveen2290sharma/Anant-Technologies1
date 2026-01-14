@@ -2,25 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-const container = document.getElementById('root');
+console.log("App booting up...");
 
-if (!container) {
-  throw new Error("Failed to find the root element");
-}
+const rootElement = document.getElementById('root');
 
-try {
-  const root = ReactDOM.createRoot(container);
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-  console.log("React Application Started");
-} catch (error) {
-  console.error("Startup Error:", error);
-  const display = document.getElementById('error-display');
-  if (display) {
-    display.style.display = 'block';
-    display.innerHTML = `<h1>Application Failed to Start</h1><pre>${error instanceof Error ? error.message : String(error)}</pre>`;
+if (!rootElement) {
+  console.error("Critical: Root element not found");
+} else {
+  try {
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+    console.log("React Rendered Successfully");
+  } catch (error) {
+    console.error("React Mounting Error:", error);
+    const display = document.getElementById('error-display');
+    if (display) {
+      display.style.display = 'block';
+      display.innerHTML = `<h1>Startup Error</h1><pre>${error instanceof Error ? error.stack : String(error)}</pre>`;
+    }
   }
 }
