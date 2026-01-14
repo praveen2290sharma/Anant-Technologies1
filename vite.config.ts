@@ -5,10 +5,13 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   define: {
-    'process.env.API_KEY': JSON.stringify(process.env.API_KEY || '')
+    // Stringify the API key and ensure a minimal process.env exists
+    'process.env.API_KEY': JSON.stringify(process.env.API_KEY || ''),
+    'process.env': JSON.stringify({})
   },
   build: {
     outDir: 'dist',
+    sourcemap: true,
     rollupOptions: {
       input: {
         main: './index.html'

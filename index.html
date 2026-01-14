@@ -13,12 +13,12 @@
       #root:empty {
         display: flex;
         align-items: center;
-        justify-center: center;
+        justify-content: center;
         height: 100vh;
         background: #f8fafc;
       }
       #root:empty::after {
-        content: "Loading Experience...";
+        content: "Initializing Application...";
         font-weight: 700;
         color: #4f46e5;
         font-size: 1.2rem;
@@ -28,25 +28,48 @@
         0%, 100% { opacity: 1; }
         50% { opacity: 0.5; }
       }
+      #error-display {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: #fff;
+        color: #ef4444;
+        padding: 40px;
+        z-index: 9999;
+        font-family: monospace;
+        overflow: auto;
+      }
     </style>
+    <script>
+      // Global error listener to catch initialization failures
+      window.onerror = function(msg, url, lineNo, columnNo, error) {
+        var display = document.getElementById('error-display');
+        if (display) {
+          display.style.display = 'block';
+          display.innerHTML = '<h1>Critical Error</h1><p>' + msg + '</p><p>Line: ' + lineNo + '</p><pre>' + (error ? error.stack : '') + '</pre>';
+        }
+        return false;
+      };
+    </script>
   <script type="importmap">
 {
   "imports": {
-    "vite": "https://esm.sh/vite@^7.3.1",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
+    "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
 </head>
   <body>
     <div id="root"></div>
-    <!-- CRITICAL: The script tag below was missing, which caused the blank screen -->
-    <script type="module" src="/index.tsx"></script>
+    <div id="error-display"></div>
+    <!-- Use relative path for Vite source -->
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
