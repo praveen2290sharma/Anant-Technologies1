@@ -18,7 +18,7 @@
         background: #f8fafc;
       }
       #root:empty::after {
-        content: "Initializing Application...";
+        content: "Starting Engine...";
         font-weight: 700;
         color: #4f46e5;
         font-size: 1.2rem;
@@ -41,12 +41,11 @@
       }
     </style>
     <script>
-      // Global error listener to catch initialization failures
       window.onerror = function(msg, url, lineNo, columnNo, error) {
         var display = document.getElementById('error-display');
         if (display) {
           display.style.display = 'block';
-          display.innerHTML = '<h1>Critical Error</h1><p>' + msg + '</p><p>Line: ' + lineNo + '</p><pre>' + (error ? error.stack : '') + '</pre>';
+          display.innerHTML = '<h1 style="font-size: 24px;">Setup Error</h1><p>' + msg + '</p><pre>' + (error ? error.stack : '') + '</pre>';
         }
         return false;
       };
@@ -69,7 +68,6 @@
   <body>
     <div id="root"></div>
     <div id="error-display"></div>
-    <!-- Use relative path for Vite source -->
-    <script type="module" src="./index.tsx"></script>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>
