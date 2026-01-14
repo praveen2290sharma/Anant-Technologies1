@@ -6,9 +6,14 @@ export default defineConfig({
   plugins: [react()],
   define: {
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY || ''),
-    'process.env': JSON.stringify({})
+    // Providing a basic process object to avoid crashes in libraries that expect it
+    'process.env': JSON.stringify({ NODE_ENV: 'production' })
   },
   server: {
     historyApiFallback: true
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true
   }
 });

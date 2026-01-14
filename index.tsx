@@ -3,12 +3,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-console.log("App starting...");
+console.log("React Initializing...");
 
-const mountApp = () => {
+const startApp = () => {
   const rootElement = document.getElementById('root');
   if (!rootElement) {
-    console.error("Could not find root element to mount to");
+    console.error("Critical: Could not find element with id 'root'");
     return;
   }
 
@@ -19,20 +19,20 @@ const mountApp = () => {
         <App />
       </React.StrictMode>
     );
-    console.log("App mounted successfully");
+    console.log("React successfully rendered to DOM");
   } catch (error) {
-    console.error("React Render Error:", error);
+    console.error("React Startup Failed:", error);
     const display = document.getElementById('error-display');
     if (display) {
       display.style.display = 'block';
-      display.innerHTML = `<h1>React Render Error</h1><pre>${error instanceof Error ? error.stack : String(error)}</pre>`;
+      display.innerHTML = `<h1>Initialization Failed</h1><pre>${error instanceof Error ? error.stack : String(error)}</pre>`;
     }
   }
 };
 
-// Ensure DOM is fully ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', mountApp);
+// Start when window is ready
+if (document.readyState === 'complete') {
+  startApp();
 } else {
-  mountApp();
+  window.addEventListener('load', startApp);
 }

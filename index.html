@@ -9,16 +9,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+      body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: #f8fafc; }
       #root:empty {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
-        background: #f8fafc;
       }
       #root:empty::after {
-        content: "Starting Engine...";
+        content: "Loading Application...";
         font-weight: 700;
         color: #4f46e5;
         font-size: 1.2rem;
@@ -41,11 +40,12 @@
       }
     </style>
     <script>
+      // Global error handler to help us see what is breaking
       window.onerror = function(msg, url, lineNo, columnNo, error) {
         var display = document.getElementById('error-display');
         if (display) {
           display.style.display = 'block';
-          display.innerHTML = '<h1 style="font-size: 24px;">Setup Error</h1><p>' + msg + '</p><pre>' + (error ? error.stack : '') + '</pre>';
+          display.innerHTML = '<h1 style="color:red">Application Error</h1><p>' + msg + '</p><pre>' + (error ? error.stack : '') + '</pre>';
         }
         return false;
       };
@@ -68,6 +68,7 @@
   <body>
     <div id="root"></div>
     <div id="error-display"></div>
-    <script type="module" src="/index.tsx"></script>
+    <!-- Vite will handle this relative path correctly -->
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
