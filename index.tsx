@@ -1,38 +1,26 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-console.log("React Initializing...");
+const container = document.getElementById('root');
 
-const startApp = () => {
-  const rootElement = document.getElementById('root');
-  if (!rootElement) {
-    console.error("Critical: Could not find element with id 'root'");
-    return;
+if (!container) {
+  throw new Error("Failed to find the root element");
+}
+
+try {
+  const root = ReactDOM.createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+  console.log("React Application Started");
+} catch (error) {
+  console.error("Startup Error:", error);
+  const display = document.getElementById('error-display');
+  if (display) {
+    display.style.display = 'block';
+    display.innerHTML = `<h1>Application Failed to Start</h1><pre>${error instanceof Error ? error.message : String(error)}</pre>`;
   }
-
-  try {
-    const root = ReactDOM.createRoot(rootElement);
-    root.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    );
-    console.log("React successfully rendered to DOM");
-  } catch (error) {
-    console.error("React Startup Failed:", error);
-    const display = document.getElementById('error-display');
-    if (display) {
-      display.style.display = 'block';
-      display.innerHTML = `<h1>Initialization Failed</h1><pre>${error instanceof Error ? error.stack : String(error)}</pre>`;
-    }
-  }
-};
-
-// Start when window is ready
-if (document.readyState === 'complete') {
-  startApp();
-} else {
-  window.addEventListener('load', startApp);
 }
